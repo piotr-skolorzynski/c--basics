@@ -1,49 +1,25 @@
-﻿using System;
-using System.Globalization;
-
-namespace FirstProject
-
-    /* Zadanie:
-
-    Utwórz aplikację konsolową, która będzie wczytywać wartości liczbowe od użytkownika, dopóki nie poda on wartości 0.
-
-    Podczas czytania, aplikacja powinna:
-
-    obliczyć sumę wszystkich elementów
-
-    znaleźć największy element
-
-    Po wczytaniu wartości 0, te dwie wartości powinny zostać wypisane w konsoli. */
+﻿namespace FirstProject
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Insert numbers: ");
+            Console.WriteLine("What is your gender? 1 - Male, 2 - Female");
+            string userInput = Console.ReadLine();
 
-            int chosenNumber = int.Parse(Console.ReadLine());
-            int sum = 0;
-            int? highestNumber = null;
+            Gender userGender = (Gender)Enum.Parse(typeof(Gender), userInput);
 
-            while (chosenNumber != 0)
+            if (userGender == Gender.Male)
             {
-                if (chosenNumber == null || chosenNumber > highestNumber)
-                {
-                    highestNumber = chosenNumber;
-                }
-                sum += chosenNumber;
-                chosenNumber = int.Parse(Console.ReadLine());
+                Console.WriteLine("Only women are allowed");
+            }
+            else
+            {
+                Console.WriteLine("Hi");
             }
 
-            Console.WriteLine($"Sum of numbers = {sum}");
-            if (highestNumber != null)
-            {
-            Console.WriteLine($"The highest number is: {highestNumber}");
+            Console.ReadLine();
 
-            } else
-            {
-                Console.WriteLine("No values inserted");
-            }
         }
     }
 }
