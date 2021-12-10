@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Globalization;
+using FirstProject.ExcelFile;
+using FirstProject.WordDocumentFile;
 
 namespace FirstProject
 {
@@ -7,18 +11,15 @@ namespace FirstProject
     {
         static void Main(string[] args)
         {
-            Person john = new Person(new DateTime(1990, 2, 2), "John", "Malcowich");
-            john.SayHi();
-            
-            Person bill = new Person("Bill", "Wick");
-            bill.SetDateOfBirth(new DateTime(1982, 8, 25));
-            bill.SayHi();
-            //example of using setter and getter for this property
-            bill.ContactNumber = "791-391-296"; //setter
-            Console.WriteLine(bill.ContactNumber);
+            ExcelFile excelFile = new ExcelFile();
+            excelFile.FileName = "excel-file";
+            excelFile.CreatedOn = DateTime.Now;
+            excelFile.GenerateReport();
 
-            // showing numbers of created objects od class Person using static property in constructor
-            Console.WriteLine($"objects od Person type count: {Person.Count}");
+            WordDocumentFile wordDocumentFile = new WordDocumentFile();
+            wordDocumentFile.FileName = "word-file";
+            wordDocumentFile.CreatedOn = DateTime.Now;
+            wordDocumentFile.Print();
         }
     }
 }

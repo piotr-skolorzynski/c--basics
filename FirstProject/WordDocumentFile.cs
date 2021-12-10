@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace FirstProject
 {
-	public class WordDocumentFile : File
+	class WordDocumentFile : File
 	{
 
 		public void Print()

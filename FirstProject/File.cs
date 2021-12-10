@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace FirtsProject
 {
-	public class File
+	class File
 	{
 		public string FileName { get; set; }
 		public int Size { get; set; }

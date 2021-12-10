@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace FirstProject
 {
-	public class ExcelFile : File
+	class ExcelFile : File
 	{
 
 		public void GenerateReport()
