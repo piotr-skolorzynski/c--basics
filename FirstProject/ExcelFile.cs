@@ -4,18 +4,18 @@ using System.Text;
 
 namespace FirstProject
 {
-    class ExcelFile : File
-	{
-
-		public void GenerateReport()
+    class ExcelFile : IFile
+    {
+        public string FileName { get; set; }    
+        public int Size { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public void Compress()
         {
-			Console.WriteLine($"{FileName} report ...");
+            Console.WriteLine("Compressing File");
         }
-
-		//implementation of abstract method 
-		public override void Compress()
+        public void GenerateReport()
         {
-			Console.WriteLine("Compressing ExcelFile");
+            Console.WriteLine($"{FileName} report...");
         }
 	}
 

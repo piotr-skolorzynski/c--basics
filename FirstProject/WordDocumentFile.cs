@@ -4,18 +4,18 @@ using System.Text;
 
 namespace FirstProject
 {
-    class WordDocumentFile : File
+    class WordDocumentFile : IFile
 	{
-
-		public void Print()
+        public string FileName { get; set; }
+        public int Size { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public void Compress()
+        {
+            Console.WriteLine("Compressing File");
+        }
+        public void Print()
 		{
 			Console.WriteLine($"{FileName} printing ...");
-		}
-
-		//implementation of abstract method 
-		public override void Compress()
-		{
-			Console.WriteLine("Compressing WordDocumentFile");
 		}
 	}
 
