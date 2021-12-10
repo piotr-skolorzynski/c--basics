@@ -2,11 +2,8 @@
 
 namespace FirstProject
 {
-	public class WordDocumentFile
+	public class WordDocumentFile : File
 	{
-		public string FileName { get; set; }
-		public int Size { get; set; }
-		public DateTime CreatedOn { get; set; }
 
 		public void Print()
 		{

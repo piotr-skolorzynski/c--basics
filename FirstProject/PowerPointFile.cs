@@ -2,11 +2,8 @@
 
 namespace FirstProject
 {
-	public class PowerPointFile
+	public class PowerPointFile : File
 	{
-		public string FileName { get; set; }
-		public int Size { get; set; }
-		public DateTime CreatedOn { get; set; }
 
 		public void Present()
 		{

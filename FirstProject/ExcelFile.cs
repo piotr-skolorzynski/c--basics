@@ -2,11 +2,8 @@
 
 namespace FirstProject
 {
-	public class ExcelFile
+	public class ExcelFile : File
 	{
-		public string FileName { get; set; }
-        public int Size { get; set; }
-        public DateTime CreatedOn { get; set; }
 
 		public void GenerateReport()
         {
