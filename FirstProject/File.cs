@@ -4,11 +4,14 @@ using System.Text;
 
 namespace FirtsProject
 {
-	class File
+	abstract class File
 	{
 		public string FileName { get; set; }
 		public int Size { get; set; }
 		public DateTime CreatedOn { get; set; }
+
+		//example of abstract method
+		public abstract void Compress();
 	}
 }
 
