@@ -6,6 +6,8 @@ namespace FirstProject
 {
     class Person
     {
+        // example of using static properties in class
+        public static int Count = 0; //property to count number of created objects using this class
         public string FirstName;
         public string LastName;
 
@@ -24,11 +26,11 @@ namespace FirstProject
 
         public string ContactNumber { get; set; }
 
-
         public Person(string firstName, string lastName)
         {
             FirstName = firstName;
             LastName = lastName;
+            Count++; //how to change static property when object is created
         }
 
         public Person(DateTime dateOfBirth, string firstName, string lastName) : this(firstName, lastName)

@@ -17,7 +17,8 @@ namespace FirstProject
             bill.ContactNumber = "791-391-296"; //setter
             Console.WriteLine(bill.ContactNumber);
 
-
+            // showing numbers of created objects od class Person using static property in constructor
+            Console.WriteLine($"objects od Person type count: {Person.Count}");
         }
     }
 }
