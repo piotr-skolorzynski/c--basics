@@ -11,27 +11,31 @@ namespace FirstProject
 
         private DateTime dateOfBirth;
 
+        //example of private property and methods getter and setter giving protected access
+        /* private string contactNumber;
+
+        public string ContactNumber
+        {
+            get { return contactNumber; }
+            set { contactNumber = value; }
+        } */
+
+        //example of using shorthand for property
+
+        public string ContactNumber { get; set; }
+
+
         public Person(string firstName, string lastName)
         {
             FirstName = firstName;
             LastName = lastName;
         }
 
-        /*public Person(DateTime dateOfBirth, string firstName, string lastName)
-        {
-            SetDateOfBirth(dateOfBirth);
-            FirstName = firstName;
-            LastName=lastName;
-        }*/
-        //zapisa powyższego konstruktora z 3 parametrami można uprościć, a bardziej zaznaczyć, że najpierw
-        // ma się wykonać konstruktor z 2 parametrami a następnie trzema
-
         public Person(DateTime dateOfBirth, string firstName, string lastName) : this(firstName, lastName)
         {
             SetDateOfBirth(dateOfBirth);
         }
 
-        // konstruktorów można mieć wiele, byle różniły się między sobą m.in. liczbą i typami parametrów
         public void SetDateOfBirth(DateTime date)
         {
             if(date > DateTime.Now)
@@ -44,12 +48,7 @@ namespace FirstProject
             }
         }
 
-        public DateTime GetDateOfBirth()
-        {
-            return dateOfBirth;
-        }
-        // można zastosować expression value 
-        // public DateTime GetDateOfBirth() => dateOfBirth;
+        public DateTime GetDateOfBirth() => dateOfBirth;
 
         public void SayHi()
         {
