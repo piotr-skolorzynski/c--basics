@@ -7,35 +7,51 @@ namespace FirstProject
 {
     class Program
     {
-        //method to display List
-        static void DisplayElements(List<int> list)
+        static List<Person> GetEmployees()
         {
-            Console.WriteLine("** List **");
-            foreach (int element in list)
+            List<Person> employees = new List<Person>()
             {
-                Console.Write($"{element}, ");
-            }
-            Console.WriteLine();
+                new Person(new DateTime(1990, 2, 2), "Bill", "Wick"),
+                new Person(new DateTime(1995, 6, 3), "John", "Wick"),
+                new Person(new DateTime(1996, 4, 3), "Bob", "Wick"),
+                new Person(new DateTime(2001, 2, 2), "Bill", "Smith"),
+                new Person(new DateTime(2000, 2, 2), "John", "Smith"),
+                new Person(new DateTime(2005, 2, 2), "Bob", "Smith"),
+                new Person(new DateTime(2003, 2, 2), "Ed", "Smith"),
+            };
+            return employees;
         }
         static void Main(string[] args)
         {
-           List<int> intList = new List<int>() { 6, 1, 20, 3, 45, 60, 100, 2 }; //creating collection type List with default values
-            DisplayElements(intList); //displaying declared List
-            //adding element to the List
-            Console.WriteLine("New element: ");
-            int newElement = int.Parse(Console.ReadLine());
-            intList.Add(newElement);//adding new element to the list
-            DisplayElements(intList); //display List again to show that new element was added to the List
+          List<Person> employees = GetEmployees();
+          List<Person> youngEmployess = new List<Person>();
+            foreach(Person employee in employees)
+            {
+                if (employee.GetDateOfBirth() > new DateTime(2000, 1, 1))
+                {
+                    youngEmployess.Add(employee);
+                }
+            }
+            Console.WriteLine($"Young employees count: {youngEmployess.Count}");
 
-            //example of using method RemoveRange
-            Console.WriteLine("Remove range");
-            intList.RemoveRange(1, 2);
-            DisplayElements(intList);
+            Person bob = null;
+            foreach(Person youngEmployee in youngEmployess)
+            {
+                if (youngEmployee.FirstName == "Bob")
+                {
+                    bob = youngEmployee;
+                    break;
+                }
+            }
 
-            //sorting example
-            Console.WriteLine("Sort");
-            intList.Sort();
-            DisplayElements(intList);
+            if (bob != null)
+            {
+                bob.SayHi();
+            }
+            else
+            {
+                Console.WriteLine("Bob not found");
+            }
         }
     }
 }

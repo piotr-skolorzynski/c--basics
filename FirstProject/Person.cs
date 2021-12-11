@@ -6,23 +6,12 @@ namespace FirstProject
 {
     class Person
     {
-        // example of using static properties in class
-        public static int Count = 0; //property to count number of created objects using this class
         public string FirstName;
         public string LastName;
 
         private DateTime dateOfBirth;
-
-        //example of private property and methods getter and setter giving protected access
-        /* private string contactNumber;
-
-        public string ContactNumber
-        {
-            get { return contactNumber; }
-            set { contactNumber = value; }
-        } */
-
-        //example of using shorthand for property
+        private string contactNumber;
+        public static int Count = 0;
 
         public string ContactNumber { get; set; }
 
@@ -30,7 +19,7 @@ namespace FirstProject
         {
             FirstName = firstName;
             LastName = lastName;
-            Count++; //how to change static property when object is created
+            Count++;
         }
 
         public Person(DateTime dateOfBirth, string firstName, string lastName) : this(firstName, lastName)
