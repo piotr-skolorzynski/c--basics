@@ -9,15 +9,13 @@ namespace FirstProject
     {
         static void Main(string[] args)
         {
-            ExcelFile excelFile = new ExcelFile();
-            excelFile.FileName = "excel-file";
-            excelFile.CreatedOn = DateTime.Now;
-            excelFile.GenerateReport();
+            // example of polymorphism
+            Shape[] shapes = { new Circle(), new Rectangle(), new Triangle() };
 
-            WordDocumentFile wordDocumentFile = new WordDocumentFile();
-            wordDocumentFile.FileName = "word-file";
-            wordDocumentFile.CreatedOn = DateTime.Now;
-            wordDocumentFile.Print();
+            foreach (Shape shape in shapes)
+            {
+                shape.Draw();
+            }
         }
     }
 }
