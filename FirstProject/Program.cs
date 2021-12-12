@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Globalization;
+using System.Linq;
 
 namespace FirstProject
 {
@@ -24,25 +25,24 @@ namespace FirstProject
         static void Main(string[] args)
         {
           List<Person> employees = GetEmployees();
-          List<Person> youngEmployess = new List<Person>();
-            foreach(Person employee in employees)
-            {
-                if (employee.GetDateOfBirth() > new DateTime(2000, 1, 1))
-                {
-                    youngEmployess.Add(employee);
-                }
-            }
-            Console.WriteLine($"Young employees count: {youngEmployess.Count}");
+            
+            // using linq
+          bool EmployeeIsYoung(Person employee)
+          {
+                return employee.GetDateOfBirth() > new DateTime(2000, 1, 1);
+          }
 
-            Person bob = null;
-            foreach(Person youngEmployee in youngEmployess)
+          List<Person> youngEmployess = employees.Where(EmployeeIsYoung).ToList();
+            
+          Console.WriteLine($"Young employees count: {youngEmployess.Count}");
+
+            // using linq
+            bool EmployeeIsBob(Person employee)
             {
-                if (youngEmployee.FirstName == "Bob")
-                {
-                    bob = youngEmployee;
-                    break;
-                }
+                return employee.FirstName == "Bob";
             }
+
+            Person bob = youngEmployess.FirstOrDefault(EmployeeIsBob);
 
             if (bob != null)
             {
