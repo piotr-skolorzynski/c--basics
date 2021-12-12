@@ -22,9 +22,9 @@ namespace FirstProject
         }
         static void Main(string[] args)
         {
-            Dictionary<string, Currency> currencies = GetCurrencies();
+            var currencies = GetCurrencies();
             Console.WriteLine("Check the rate for:");
-            string userInput  = Console.ReadLine();
+            var userInput  = Console.ReadLine();
 
             Currency selectedCurrency = null;
             if (currencies.TryGetValue(userInput, out selectedCurrency))
@@ -38,7 +38,8 @@ namespace FirstProject
 
             currencies.Remove("usd"); //how to delete element in dictionary
 
-            currencies.Add("usd", new Currency("pln", "Polski złoty", 4.45)); //adding element to dictionary
+            //currencies.Add("usd", new Currency("pln", "Polski złoty", 4.45)); //adding element to dictionary
+            currencies.TryAdd("usd", new Currency("pln", "Polski złoty", 4.45));
         }
     }
 }
