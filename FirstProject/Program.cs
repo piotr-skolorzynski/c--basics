@@ -26,32 +26,22 @@ namespace FirstProject
         {
           List<Person> employees = GetEmployees();
             
-            // using linq
-          bool EmployeeIsYoung(Person employee)
-          {
-                return employee.GetDateOfBirth() > new DateTime(2000, 1, 1);
-          }
-
-          List<Person> youngEmployess = employees.Where(EmployeeIsYoung).ToList();
+          // using linq with lambda expression as predicate
+          List<Person> youngEmployess = employees.Where(e => e.GetDateOfBirth() > new DateTime(2000, 1, 1)).ToList();
             
           Console.WriteLine($"Young employees count: {youngEmployess.Count}");
 
-            // using linq
-            bool EmployeeIsBob(Person employee)
-            {
-                return employee.FirstName == "Bob";
-            }
+          // using linq with lambda expression as predicate
+          Person bob = youngEmployess.FirstOrDefault(e => e.FirstName == "Bob");
 
-            Person bob = youngEmployess.FirstOrDefault(EmployeeIsBob);
-
-            if (bob != null)
-            {
-                bob.SayHi();
-            }
-            else
-            {
-                Console.WriteLine("Bob not found");
-            }
+          if (bob != null)
+          {
+            bob.SayHi();
+          }
+          else
+          {
+            Console.WriteLine("Bob not found");
+          }
         }
     }
 }
