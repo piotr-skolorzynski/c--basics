@@ -8,40 +8,33 @@ namespace FirstProject
 {
     class Program
     {
-        static List<Person> GetEmployees()
+        static List<Currency> GetCurrencies()
         {
-            List<Person> employees = new List<Person>()
+            return new List<Currency>
             {
-                new Person(new DateTime(1990, 2, 2), "Bill", "Wick"),
-                new Person(new DateTime(1995, 6, 3), "John", "Wick"),
-                new Person(new DateTime(1996, 4, 3), "Bob", "Wick"),
-                new Person(new DateTime(2001, 2, 2), "Bill", "Smith"),
-                new Person(new DateTime(2000, 2, 2), "John", "Smith"),
-                new Person(new DateTime(2005, 2, 2), "Bob", "Smith"),
-                new Person(new DateTime(2003, 2, 2), "Ed", "Smith"),
+                new Currency("usd", "United States Dollar", 1),
+                new Currency("eur", "Euro", 0.83975),
+                new Currency("gbp", "British Pound", 0.74771),
+                new Currency("cad", "Canadian Dollar", 1.30724),
+                new Currency("inr", "Indian Rupee", 73.04),
+                new Currency("mxn", "Mexican Peso", 21.7571),
             };
-            return employees;
         }
         static void Main(string[] args)
         {
-          List<Person> employees = GetEmployees();
-            
-          // using linq with lambda expression as predicate
-          List<Person> youngEmployess = employees.Where(e => e.GetDateOfBirth() > new DateTime(2000, 1, 1)).ToList();
-            
-          Console.WriteLine($"Young employees count: {youngEmployess.Count}");
+            List<Currency> currencies = GetCurrencies();
+            Console.WriteLine("Check the rate for:");
+            string userInput  = Console.ReadLine();
 
-          // using linq with lambda expression as predicate
-          Person bob = youngEmployess.FirstOrDefault(e => e.FirstName == "Bob");
-
-          if (bob != null)
-          {
-            bob.SayHi();
-          }
-          else
-          {
-            Console.WriteLine("Bob not found");
-          }
+            Currency selectedCurrency = currencies.FirstOrDefault(c => c.Name == userInput);
+            if (selectedCurrency != null)
+            {
+                Console.WriteLine($"Rate for USD to {selectedCurrency.FullName} is {selectedCurrency.Rate}");
+            }
+            else
+            {
+                Console.WriteLine("Currency not found");
+            }
         }
     }
 }
