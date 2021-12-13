@@ -15,6 +15,14 @@ namespace PhoneBookConsoleApp
             Console.WriteLine($"Contact: {contact.Name}, {contact.Number}");
         }
 
+        private void DisplayContactsDetails(List<Contact> contacts)
+        {
+            foreach (var contact in contacts)
+            {
+                DisplayContactDetails(contact);
+            }
+        }
+
         //functionlity to add every single contact for now without validation of created contact
         public void AddContact(Contact contact)
         {
@@ -38,10 +46,14 @@ namespace PhoneBookConsoleApp
         //functionality to show all contacts
         public void DisplayAllContacts()
         {
-            foreach (var contact in Contacts)
-            {
-                DisplayContactDetails(contact);
-            }
+            DisplayContactsDetails(Contacts);
+        }
+
+        //functionality to display contacts based on passed searchPhrase
+        public void DisplayMatchingContacts(string searchPhrase)
+        {
+            var matchingContacts = Contacts.Where(c => c.Name.Contains(searchPhrase)).ToList();
+            DisplayContactsDetails(matchingContacts);
         }
     }
 }
