@@ -8,38 +8,49 @@ namespace FirstProject
 {
     class Program
     {
-        static Dictionary<string,Currency> GetCurrencies()
+        public static IEnumerable<int> GetData()
         {
-            return new Dictionary<string, Currency>
+            Console.WriteLine("Get data start");
+            var result = new List<int>();
+            for (int i = 0; i < 10; i++)
             {
-                {"usd", new Currency("usd", "United States Dollar", 1) },
-                {"eur", new Currency("eur", "Euro", 0.83975) },
-                {"gbp", new Currency("gbp", "British Pound", 0.74771) },
-                {"cad", new Currency("cad", "Canadian Dollar", 1.30724) },
-                {"inr", new Currency("inr", "Indian Rupee", 73.04) },
-                {"mxn", new Currency("mxn", "Mexican Peso", 21.7571) },
-            };
+                Console.WriteLine($"Get data element: {i}");
+                result.Add(i);
+            }
+
+            Console.WriteLine("Get data end");
+
+            return result;
+        }
+        public static IEnumerable<int> GetYieldedData()
+        {
+            Console.WriteLine("Get yieldData start");
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine($"Get data element: {i}");
+                yield return i;
+                if (i % 3 == 0)
+                {
+                    yield break;
+                }
+            }
+
+            Console.WriteLine("GetYieldData end");
+
         }
         static void Main(string[] args)
         {
-            var currencies = GetCurrencies();
-            Console.WriteLine("Check the rate for:");
-            var userInput  = Console.ReadLine();
-
-            Currency selectedCurrency = null;
-            if (currencies.TryGetValue(userInput, out selectedCurrency))
+            var data = GetData();
+            foreach (int element in data)
             {
-                Console.WriteLine($"Rate for USD to {selectedCurrency.FullName} is {selectedCurrency.Rate}");
-            }
-            else
+                Console.WriteLine(element);
+            } 
+
+            var yieldedData = GetYieldedData();
+            foreach(int element in yieldedData)
             {
-                Console.WriteLine("Currency not found");
+                Console.WriteLine(element);
             }
-
-            currencies.Remove("usd"); //how to delete element in dictionary
-
-            //currencies.Add("usd", new Currency("pln", "Polski złoty", 4.45)); //adding element to dictionary
-            currencies.TryAdd("usd", new Currency("pln", "Polski złoty", 4.45));
         }
     }
 }
