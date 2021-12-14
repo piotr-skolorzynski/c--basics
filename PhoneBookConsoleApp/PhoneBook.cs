@@ -55,5 +55,12 @@ namespace PhoneBookConsoleApp
             var matchingContacts = Contacts.Where(c => c.Name.Contains(searchPhrase)).ToList();
             DisplayContactsDetails(matchingContacts);
         }
+
+        //functionality to remove contact using phone number
+        public void RemoveContactByNumber(string number)
+        {
+            var contactToRemove = Contacts.FirstOrDefault(c => c.Number == number);
+            Contacts.Remove(contactToRemove);
+        }
     }
 }
