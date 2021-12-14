@@ -8,7 +8,7 @@ namespace PhoneBookConsoleApp
 {
     internal class PhoneBook
     {
-        public List<Contact> Contacts { get; set; }
+        public List<Contact> Contacts { get; set; } = new List<Contact>();//declared as a new List to handle Exeption related to null value 
 
         private void DisplayContactDetails(Contact contact)
         {
