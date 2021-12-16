@@ -10,7 +10,7 @@ namespace FirstProject
     {
         class Car
         {
-
+            //first solution to compare reference type values by overriding method Equals
             public override bool Equals(object? obj)
             {
                 if (obj == null)
@@ -26,6 +26,17 @@ namespace FirstProject
                 Car carObj = (Car)obj;
 
                 return this.horsePower == carObj.horsePower;
+            }
+            //second solution to compare reference type values by overriding operator ==
+            public static bool operator ==(Car carOne, Car carTwo)
+            {
+                return Equals(carOne, carTwo);
+            }
+
+            //second solution to compare reference type values by overriding operator !=
+            public static bool operator !=(Car carOne, Car carTwo)
+            {
+                return !Equals(carOne, carTwo);
             }
             public Car(int horsePower)
             {
@@ -44,7 +55,9 @@ namespace FirstProject
             Car car1 = new Car(horsePower1);
             Car car2 = new Car(horsePower2);
 
-            bool referenceTypeEquality = car1.Equals(car2);
+            //bool referenceTypeEquality = car1.Equals(car2);
+            bool referenceTypeEquality = car1 == car2;
+
 
             Console.WriteLine($"valueTypeEquality: {valueTypeEquality}");
             Console.WriteLine($"referenceTypeEquality: {referenceTypeEquality}");
