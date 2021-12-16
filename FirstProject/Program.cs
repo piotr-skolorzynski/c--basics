@@ -8,49 +8,30 @@ namespace FirstProject
 {
     class Program
     {
-        public static IEnumerable<int> GetData()
+        class Car
         {
-            Console.WriteLine("Get data start");
-            var result = new List<int>();
-            for (int i = 0; i < 10; i++)
+            public Car(int horsePower)
             {
-                Console.WriteLine($"Get data element: {i}");
-                result.Add(i);
+                horsePower = horsePower;
             }
-
-            Console.WriteLine("Get data end");
-
-            return result;
+            public int horsePower { get; set; }
         }
-        public static IEnumerable<int> GetYieldedData()
-        {
-            Console.WriteLine("Get yieldData start");
-            for (int i = 0; i < 10; i++)
-            {
-                Console.WriteLine($"Get data element: {i}");
-                yield return i;
-                if (i % 3 == 0)
-                {
-                    yield break;
-                }
-            }
 
-            Console.WriteLine("GetYieldData end");
-
-        }
         static void Main(string[] args)
         {
-            var data = GetData();
-            foreach (int element in data)
-            {
-                Console.WriteLine(element);
-            } 
+            int horsePower1 = 350;
+            int horsePower2 = 350;
 
-            var yieldedData = GetYieldedData();
-            foreach(int element in yieldedData)
-            {
-                Console.WriteLine(element);
-            }
+            bool valueTypeEquality  = horsePower1 == horsePower2;
+
+            Car car1 = new Car(horsePower1);
+            Car car2 = new Car(horsePower2);
+
+            bool referenceTypeEquality = car1 == car2;
+            // the same as bool referenceTypeEquality = car1.Equals(car2);
+
+            Console.WriteLine($"valueTypeEquality: {valueTypeEquality}");
+            Console.WriteLine($"referenceTypeEquality: {referenceTypeEquality}");
         }
     }
 }
