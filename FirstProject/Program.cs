@@ -10,6 +10,23 @@ namespace FirstProject
     {
         class Car
         {
+
+            public override bool Equals(object? obj)
+            {
+                if (obj == null)
+                {
+                    return false;   
+                }
+
+                if(this.GetType() != obj.GetType())
+                {
+                    return false;
+                }
+
+                Car carObj = (Car)obj;
+
+                return this.horsePower == carObj.horsePower;
+            }
             public Car(int horsePower)
             {
                 horsePower = horsePower;
@@ -27,8 +44,7 @@ namespace FirstProject
             Car car1 = new Car(horsePower1);
             Car car2 = new Car(horsePower2);
 
-            bool referenceTypeEquality = car1 == car2;
-            // the same as bool referenceTypeEquality = car1.Equals(car2);
+            bool referenceTypeEquality = car1.Equals(car2);
 
             Console.WriteLine($"valueTypeEquality: {valueTypeEquality}");
             Console.WriteLine($"referenceTypeEquality: {referenceTypeEquality}");
