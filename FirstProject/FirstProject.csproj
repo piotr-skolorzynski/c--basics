@@ -9,4 +9,8 @@
 	<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="TextFiles\Append\" />
+  </ItemGroup>
+
 </Project>

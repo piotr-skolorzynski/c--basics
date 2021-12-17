@@ -44,13 +44,24 @@ namespace FirstProject
                 .Replace("{dateTime}", DateTime.Now.ToString());
             //create txt file on hard drive
             File.WriteAllText($"D:/csharp-basics/FirstProject/TextFiles/Write/document-{name}.txt", document);
+        }
 
+        static void ScanAndAppend()
+        {
+            //getting name of files and directories
+            var files = Directory.GetFiles("D:/csharp-basics/FirstProject/TextFiles/Append/", "*.txt", SearchOption.AllDirectories);
+            //adding text to all selected files
+            foreach (var file in files)
+            {
+                File.AppendAllText(file, "All rights reserved");
+            }
         }
         static void Main(string[] args)
         {
             //execute method
-            ReadFiles();
-            GenerateDocuments();
+            //ReadFiles();
+            //GenerateDocuments();
+            ScanAndAppend();
         }
     }
 }
