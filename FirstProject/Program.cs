@@ -3,64 +3,34 @@ using System.Collections.Generic;
 using System.Text;
 using System.Globalization;
 using System.Linq;
+using System.IO;
 
 namespace FirstProject
 {
     class Program
     {
-        class Car
+        static void ReadFiles()
         {
-            //first solution to compare reference type values by overriding method Equals
-            public override bool Equals(object? obj)
-            {
-                if (obj == null)
-                {
-                    return false;   
-                }
+            //reading text files
+            var document1 = File.ReadAllText(@"D:\csharp-basics\FirstProject\TextFiles\document1.txt");
+            var document2 = File.ReadAllLines(@"D:\csharp-basics\FirstProject\TextFiles\document2.txt");
 
-                if(this.GetType() != obj.GetType())
-                {
-                    return false;
-                }
-
-                Car carObj = (Car)obj;
-
-                return this.horsePower == carObj.horsePower;
-            }
-            //second solution to compare reference type values by overriding operator ==
-            public static bool operator ==(Car carOne, Car carTwo)
+            Console.WriteLine("document1:");
+            Console.WriteLine(document1);
+            Console.WriteLine("document2:");
+            //first solution to show text from table
+            /*foreach (var element in document2)
             {
-                return Equals(carOne, carTwo);
-            }
-
-            //second solution to compare reference type values by overriding operator !=
-            public static bool operator !=(Car carOne, Car carTwo)
-            {
-                return !Equals(carOne, carTwo);
-            }
-            public Car(int horsePower)
-            {
-                horsePower = horsePower;
-            }
-            public int horsePower { get; set; }
+                Console.WriteLine(element);
+            }*/
+            //second solution
+            var documentToString =  string.Join(Environment.NewLine, document2);
+            Console.WriteLine(documentToString);
         }
-
         static void Main(string[] args)
         {
-            int horsePower1 = 350;
-            int horsePower2 = 350;
-
-            bool valueTypeEquality  = horsePower1 == horsePower2;
-
-            Car car1 = new Car(horsePower1);
-            Car car2 = new Car(horsePower2);
-
-            //bool referenceTypeEquality = car1.Equals(car2);
-            bool referenceTypeEquality = car1 == car2;
-
-
-            Console.WriteLine($"valueTypeEquality: {valueTypeEquality}");
-            Console.WriteLine($"referenceTypeEquality: {referenceTypeEquality}");
+            //execute method
+            ReadFiles();
         }
     }
 }
