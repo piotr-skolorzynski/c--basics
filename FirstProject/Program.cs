@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Globalization;
 using System.Linq;
-using System.IO;
-using System.Text.Json.Serialization;
-using Newtonsoft.Json;
-using System.Diagnostics;
+using System.Threading.Tasks;
+
 
 namespace FirstProject
 {
@@ -14,62 +11,58 @@ namespace FirstProject
     {
         static void Main(string[] args)
         {
-            //Exercise to transform string value to camel case and kebab case
-            //kebab case:
-            //some-variable-name
+            //Exercise to transform check if reservation dates do not collide
+            var bookedReservations = GetBookedReservations();
+            DisplayReservations(bookedReservations);
 
-            //camel case:
-            // someVariableName
-
-            Console.WriteLine("Insert kebab cased variable name ");
-            string kebabCased = Console.ReadLine();
-
-            Console.WriteLine(KebabToCamelCase(kebabCased));
-
-            Console.WriteLine("Insert camel cased variable name ");
-            string camelCased = Console.ReadLine();
+            Console.WriteLine("Insert new booking start date: (yyyy-MM-dd)");
             
-            Console.WriteLine(CamelCaseToKebab(camelCased));
+            string startDateString = Console.ReadLine();
+            DateTime startDate = DateTime.ParseExact(startDateString, "yyyy-MM-dd", null);
 
-        }
-        static string KebabToCamelCase(string input)
-        {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < input.Length; i++)
+            Console.WriteLine("Insert new booking end date: (yyyy-MM-dd)");
+            string endDateString = Console.ReadLine();
+            DateTime endDate = DateTime.ParseExact(endDateString, "yyyy-MM-dd", null);
+
+            bool isNewReservationPossible = IsNewReservationPossible(startDate, endDate, bookedReservations);
+
+            if (isNewReservationPossible)
             {
-                char currentChar = input[i];
-                if (currentChar != '-')
-                {
-                    sb.Append(currentChar);
-                }
-                else
-                {
-                    // I presume there is no such situation lik some-variable-
-                    char nextChar = input[i + 1];
-                    sb.Append(char.ToUpper(nextChar)); //the same nextChar.ToString().ToUpper();
-                    i++;
-                }
+                Console.WriteLine("Reservation booked");
             }
-            return sb.ToString();
+            else
+            {
+                Console.WriteLine("Select other booking dates");
+            }
         }
 
-        static string CamelCaseToKebab(string input)
+        static bool IsNewReservationPossible(DateTime startDate, DateTime endDate, List<Reservation> bookedReservations)
         {
-            StringBuilder sb = new StringBuilder();
-            // this time use foreach loop
-            foreach(char currentChar in input)
+            //Todo: implement the logic
+
+            return false;
+        }
+
+        static void DisplayReservations(List<Reservation> bookedReservations)
+        {
+            Console.WriteLine("Booked reservations:");
+            foreach (var bookedReservation in bookedReservations)
             {
-                if (char.IsUpper(currentChar))
-                {
-                    sb.Append('-');
-                    sb.Append(char.ToLower(currentChar));
-                }
-                else
-                {
-                    sb.Append(currentChar);
-                }
+                Console.WriteLine($"From: {bookedReservation.From.ToString("yyyy-MM-dd")}, " +
+                    $"To:{bookedReservation.To.ToString("yyyy-MM-dd")}");
             }
-            return sb.ToString();
+        }
+
+        static List<Reservation> GetBookedReservations()
+        {
+            var reservations = new List<Reservation>()
+            {
+                new Reservation(new DateTime(2021, 6, 10), new DateTime(2021, 6, 12)),
+                new Reservation(new DateTime(2021, 6, 19), new DateTime(2021, 6, 20)),
+                new Reservation(new DateTime(2021, 6, 24), new DateTime(2021, 6, 26)),
+                new Reservation(new DateTime(2021, 7, 24), new DateTime(2021, 7, 25)),
+            };
+            return reservations;
         }
 
     }
