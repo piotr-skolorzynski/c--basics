@@ -6,6 +6,7 @@ using System.Linq;
 using System.IO;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace FirstProject
 {
@@ -13,70 +14,74 @@ namespace FirstProject
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Insert input:");
-            string userInput = Console.ReadLine();
-
-            //SubString(userInput);
-            //Replace(userInput);
-            //Modify(userInput);
-            //Split(userInput);
-            // CheckString(userInput);
+            //DateTimeModification();
+            //DateTimeFormatting();
+            //TimeMeasurement();
+            DateTimeHelpers();
         }
 
-        //examp of using method Substring
-        static void SubString(string userInput)
+        static void DateTimeModification()
         {
-            if(userInput.Length > 10)
-            {
-                string startSubstring = userInput.Substring(0,10);
-                string endSubstring = userInput.Substring(userInput.Length - 10);
-                Console.WriteLine($"{startSubstring}..., ...{endSubstring}");
+            DateTime now = DateTime.Now;
+            DateTime openDate = new DateTime(1992, 6, 17);
 
-            }
+            TimeSpan result = now - openDate;
+
+            Console.WriteLine(result.Days);
+            Console.Write(result.TotalDays);
+
+            DateTime expiresAt = now.AddDays(7);
+            DateTime expiresAt2 = now.Add(new TimeSpan(7,1,0,0));
+
+            Console.WriteLine(expiresAt);
+            Console.Write(expiresAt2);
+
+            bool expiresAtTheSameDay = expiresAt == expiresAt2;
+            bool expiresAtTheSameDay2 = expiresAt.Date == expiresAt2.Date;
+            Console.WriteLine($"expiresAtTheSameDay: {expiresAtTheSameDay}");
+            Console.WriteLine($"expiresAtTheSameDay2: {expiresAtTheSameDay2}");
         }
 
-        static void Replace(string userInput)
+        static void DateTimeFormatting()
         {
-            string template = "Hello {name}, how are you?";
-            string output = template.Replace("{name}", userInput);
-            Console.WriteLine(output);
+            DateTime now = DateTime.Now;
+            Console.WriteLine(now.ToShortDateString());
+            Console.WriteLine(now.ToLongDateString());
+            Console.WriteLine(now.ToString("g"));
+            Console.WriteLine(now.ToString("G"));
+            Console.WriteLine(now.ToString("yyyy-MM-dd"));
+            Console.WriteLine(now.ToString("yyyy-MM-dd hh:mm:ss"));
+            Console.WriteLine(now.ToString("dd-MM-yyyy"));
         }
 
-        static void Modify(string userInput)
+        static void TimeMeasurement()
         {
-            string removedString = userInput.Remove(5);
-            string insertedString = userInput.Insert(5, "INSERT");
-            Console.WriteLine(insertedString);
-            string trimmedString = userInput.Trim();
-            Console.WriteLine(trimmedString);
+            Console.WriteLine("What is 2 + 2?");
+            Console.WriteLine("A)4");
+            Console.WriteLine("B)6");
+            Console.WriteLine("C)8");
+            /*
+            DateTime start = DateTime.Now;
+            string userAnswer = Console.ReadLine();
+            DateTime end = DateTime.Now;
+            TimeSpan responseTime = end - start;
 
+            Console.WriteLine($"Response took you {responseTime.TotalSeconds} Seconds");
+            */
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            // or Stopwatch stopwatch = StopWatch.StartNew();
+            string userAnswer = Console.ReadLine();
+            stopwatch.Stop();
+            Console.WriteLine($"Response took you {stopwatch.Elapsed.TotalSeconds} Seconds");
         }
 
-        static void AlterTextCase(string userInput)
+        static void DateTimeHelpers()
         {
-            string upperCased = userInput.ToUpper();
-            string lowerCased = userInput.ToLower();
+            int daysInFeb2021 = DateTime.DaysInMonth(2021, 2);
+            bool is2021LeapYear = DateTime.IsLeapYear(2021);
 
-            Console.WriteLine(upperCased);
-            Console.WriteLine(lowerCased);
-        }
-
-        static void Split(string userInput)
-        {
-            string[] inputParts = userInput.Split(" ");
-            string firstName = inputParts[0];
-            string lastName = inputParts[inputParts.Length - 1];
-            Console.WriteLine($"Hello {firstName} {lastName}");
-        }
-
-        static void CheckString(string userInput)
-        {
-            bool isTextFile = userInput.EndsWith(".txt", StringComparison.CurrentCultureIgnoreCase);
-            bool startsWithDocPrefix = userInput.StartsWith("doc-", StringComparison.CurrentCultureIgnoreCase);
-            bool containsText = userInput.Contains("TEXT", StringComparison.CurrentCultureIgnoreCase);
-            Console.WriteLine($"containsText: {containsText}");
-            Console.WriteLine($"isTextFile: {isTextFile}");
-            Console.WriteLine($"startsWithDocPrefix: {startsWithDocPrefix}");
+            Console.WriteLine($"days in February 2021: {daysInFeb2021} and is 2021 a leap year?: {is2021LeapYear}");
         }
     }
 }
