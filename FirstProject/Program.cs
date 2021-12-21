@@ -14,19 +14,62 @@ namespace FirstProject
     {
         static void Main(string[] args)
         {
-            //using extenden method from created type Utils
-            DateTime now = DateTime.Now;
-            DateTime before = now.Subtract(new TimeSpan(7,0,0,0));
-            DateTime after = now.AddDays(7);
-            //using static method
-            bool isDateBetween = Utils.IsDateBetween(now, before, after);
-            //using extension method
-            bool isDateBetween2 = now.IsBetween(before, after);
+            //Exercise to transform string value to camel case and kebab case
+            //kebab case:
+            //some-variable-name
 
-            //another examp for int type returnin squared number
-            int value = 2;
-            Console.WriteLine($"Squared value: {value.Suqared()}");
+            //camel case:
+            // someVariableName
 
+            Console.WriteLine("Insert kebab cased variable name ");
+            string kebabCased = Console.ReadLine();
+
+            Console.WriteLine(KebabToCamelCase(kebabCased));
+
+            Console.WriteLine("Insert camel cased variable name ");
+            string camelCased = Console.ReadLine();
+            
+            Console.WriteLine(CamelCaseToKebab(camelCased));
+
+        }
+        static string KebabToCamelCase(string input)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < input.Length; i++)
+            {
+                char currentChar = input[i];
+                if (currentChar != '-')
+                {
+                    sb.Append(currentChar);
+                }
+                else
+                {
+                    // I presume there is no such situation lik some-variable-
+                    char nextChar = input[i + 1];
+                    sb.Append(char.ToUpper(nextChar)); //the same nextChar.ToString().ToUpper();
+                    i++;
+                }
+            }
+            return sb.ToString();
+        }
+
+        static string CamelCaseToKebab(string input)
+        {
+            StringBuilder sb = new StringBuilder();
+            // this time use foreach loop
+            foreach(char currentChar in input)
+            {
+                if (char.IsUpper(currentChar))
+                {
+                    sb.Append('-');
+                    sb.Append(char.ToLower(currentChar));
+                }
+                else
+                {
+                    sb.Append(currentChar);
+                }
+            }
+            return sb.ToString();
         }
 
     }
