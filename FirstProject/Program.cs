@@ -3,66 +3,71 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net.Http;
+using System.Web;
+using Newtonsoft.Json;
 
 
 namespace FirstProject
 {
     class Program
     {
-        static void Main(string[] args)
+        //creating HTTP client using json placeholders
+        static async Task Main(string[] args)
         {
-            //Exercise to transform check if reservation dates do not collide
-            var bookedReservations = GetBookedReservations();
-            DisplayReservations(bookedReservations);
-
-            Console.WriteLine("Insert new booking start date: (yyyy-MM-dd)");
-            
-            string startDateString = Console.ReadLine();
-            DateTime startDate = DateTime.ParseExact(startDateString, "yyyy-MM-dd", null);
-
-            Console.WriteLine("Insert new booking end date: (yyyy-MM-dd)");
-            string endDateString = Console.ReadLine();
-            DateTime endDate = DateTime.ParseExact(endDateString, "yyyy-MM-dd", null);
-
-            bool isNewReservationPossible = IsNewReservationPossible(startDate, endDate, bookedReservations);
-
-            if (isNewReservationPossible)
+            using(var httpClient = new HttpClient()) 
             {
-                Console.WriteLine("Reservation booked");
+                var result = await httpClient.GetAsync("https://jsonplaceholder.typicode.com/posts");
+                var json = await result.Content.ReadAsStringAsync();
+                //checking what is in json variable
+                //Console.WriteLine(json);
+
+                //deserialize json data to selected type
+                var posts = JsonConvert.DeserializeObject<List<Post>>(json);
+
+                //choose selected post and show its properties
+                var selectedPost = posts.First(p => p.Id == 30);
+                Console.WriteLine(selectedPost.Title);
+                Console.WriteLine(selectedPost.Body);
+
+                //change property value of selected
+                selectedPost.Title = "test tile";
+                selectedPost.Body = "test body";
+                Console.WriteLine(selectedPost.Title);
+                Console.WriteLine(selectedPost.Body);
+
+                //creating new post and sending to server
+                var postJsonContent = new StringContent(JsonConvert.SerializeObject(selectedPost)); //createing body for our Post request
+                var postResult = await httpClient.PostAsync("https://jsonplaceholder.typicode.com/posts", postJsonContent); //sending POST request to server
+
+
+                //other way to create http request
+                /*using (var postRequestMessage = 
+                    new HttpRequestMessage(HttpMethod.Put, "https://jsonplaceholder.typicode.com/posts"))
+                {
+                    //adding exemplary request header, you can add as many as you need
+                    postRequestMessage.Headers.Add("content-type", "application/json");
+                    postRequestMessage.Headers.Add("someheader", "somevalue");
+
+                    //adding Request's body
+                    postRequestMessage.Content = postJsonContent; 
+
+                    //sending request to server
+                    var post2Result = httpClient.SendAsync(postRequestMessage);
+                }*/
+
+                //creating request parameters
+                var queryParams = HttpUtility.ParseQueryString(string.Empty);
+                //create params
+                queryParams["postId"] = "1";
+                queryParams["someParam"] = "someValue";
+                //format params
+                var formattedParams = queryParams.ToString();
+
+                //see paramas
+                Console.WriteLine(formattedParams);
+
             }
-            else
-            {
-                Console.WriteLine("Select other booking dates");
-            }
-        }
-
-        static bool IsNewReservationPossible(DateTime startDate, DateTime endDate, List<Reservation> bookedReservations)
-        {
-            //Todo: implement the logic
-
-            return false;
-        }
-
-        static void DisplayReservations(List<Reservation> bookedReservations)
-        {
-            Console.WriteLine("Booked reservations:");
-            foreach (var bookedReservation in bookedReservations)
-            {
-                Console.WriteLine($"From: {bookedReservation.From.ToString("yyyy-MM-dd")}, " +
-                    $"To:{bookedReservation.To.ToString("yyyy-MM-dd")}");
-            }
-        }
-
-        static List<Reservation> GetBookedReservations()
-        {
-            var reservations = new List<Reservation>()
-            {
-                new Reservation(new DateTime(2021, 6, 10), new DateTime(2021, 6, 12)),
-                new Reservation(new DateTime(2021, 6, 19), new DateTime(2021, 6, 20)),
-                new Reservation(new DateTime(2021, 6, 24), new DateTime(2021, 6, 26)),
-                new Reservation(new DateTime(2021, 7, 24), new DateTime(2021, 7, 25)),
-            };
-            return reservations;
         }
 
     }
