@@ -13,7 +13,7 @@ namespace FirstProject
     class Program
     {
         //creating HTTP client using json placeholders
-        static async Task Main(string[] args)
+        static async Task OldMain(string[] args)
         {
             using(var httpClient = new HttpClient()) 
             {
