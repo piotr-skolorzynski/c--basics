@@ -25,7 +25,16 @@ namespace FirstProject
                 var propType = propValue.GetType();
                 if(propType.IsPrimitive || propType == typeof(string))
                 {
-                    Console.WriteLine($"{property.Name}: {propValue}");
+                    //checking if there is custom attribute to display (we know there is in Person class)
+                    var displayPropertyAttribute = property.GetCustomAttribute<DisplayPropertyAttribute>();
+                    if(displayPropertyAttribute != null)
+                    {
+                        Console.WriteLine($"{displayPropertyAttribute.DisplayName}: {propValue}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{property.Name}: {propValue}");
+                    }
                 }
             }
         }
