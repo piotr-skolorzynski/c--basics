@@ -13,52 +13,23 @@ namespace FirstProject
 {
     class Program
     {
-        //using reflection
-        static void Display(object obj)
-        {
-            Type objType = obj.GetType();
-            var properties = objType.GetProperties();
-            foreach (var property in properties)
-            {
-                var propValue = property.GetValue(obj);
-                //check value type 
-                var propType = propValue.GetType();
-                if(propType.IsPrimitive || propType == typeof(string))
-                {
-                    //checking if there is custom attribute to display (we know there is in Person class)
-                    var displayPropertyAttribute = property.GetCustomAttribute<DisplayPropertyAttribute>();
-                    if(displayPropertyAttribute != null)
-                    {
-                        Console.WriteLine($"{displayPropertyAttribute.DisplayName}: {propValue}");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"{property.Name}: {propValue}");
-                    }
-                }
-            }
-        }
         static void Main(string[] args)
         {
-            Address address = new Address()
-            {
-                City = "Krakow",
-                PostalCode = "31-556",
-                Street = "Grodzka 5"
-            };
+            //example of using generic class to show values of different types in similar way
+            //simulated list of restaurants to show
+            var restaurants = new List<Restaurant>();
+            //create object of Paginated generic class
+            var result = new PaginatedResult<Restaurant>();
+            //adding list of Restaurants to our newly created object
+            result.Results = restaurants;
 
-            Person person = new Person()
-            {
-                FirstName = "John",
-                LastName = "Doe",
-                Address = address
-            };
-            Console.WriteLine("Person:");
-            Display(person);
-            Console.WriteLine("Address:");
-            Display(address);
+            var users = new List<User>();
+            var result2 = new PaginatedResult<User>();
+            result2.Results = users;
+
         }
     }
+      
 }
 
 
