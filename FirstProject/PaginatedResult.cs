@@ -13,7 +13,7 @@ namespace FirstProject
 
     public class User
     {
-
+        public string Name { get; set; }
     }
     //example of generic class to use in order to show values from two classes in the same way but different types
     public class PaginatedResult<T>

@@ -23,10 +23,20 @@ namespace FirstProject
             //adding list of Restaurants to our newly created object
             result.Results = restaurants;
 
+            //similar implementation
             var users = new List<User>();
             var result2 = new PaginatedResult<User>();
             result2.Results = users;
 
+            //create repository with string values
+            var stringRepository = new Repository<string>();
+            stringRepository.AddElement("some value");
+            Console.WriteLine(stringRepository.GetElement(0));
+
+            //implement usage of multiple parameters repository
+            var userRepository = new Repository<string, User>();
+            userRepository.AddElement("Bill", new User() { Name = "Bill"});
+            User bill = userRepository.GetElement("Bill");
         }
     }
       
