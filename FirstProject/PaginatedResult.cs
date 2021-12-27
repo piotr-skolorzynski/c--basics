@@ -6,14 +6,20 @@ using System.Threading.Tasks;
 
 namespace FirstProject
 {
-    public class Restaurant
+    //create interface as generic constrain
+    public interface IEntity
     {
-
+        int Id { get; set; }
+    }
+    public class Restaurant : IEntity
+    {
+        public int Id { get; set; }
     }
 
-    public class User
+    public class User: IEntity
     {
         public string Name { get; set; }
+        public int Id { get; set; }
     }
     //example of generic class to use in order to show values from two classes in the same way but different types
     public class PaginatedResult<T>

@@ -29,9 +29,10 @@ namespace FirstProject
             result2.Results = users;
 
             //create repository with string values
-            var stringRepository = new Repository<string>();
-            stringRepository.AddElement("some value");
-            Console.WriteLine(stringRepository.GetElement(0));
+            //after adding IEntity interface as generic constrain it
+            //is imposible to do, var stringRepository = new Repository<string>();
+            //stringRepository.AddElement("some value");
+            //Console.WriteLine(stringRepository.GetElement(0));
 
             //implement usage of multiple parameters repository
             var userRepository = new Repository<string, User>();

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace FirstProject
 {
     // generic class to show how use generic types in methods
-    public class Repository<T>
+    public class Repository<T> where T : IEntity //adding generic constrains 
     {
         private List<T> data = new List<T>();
         //adding element to list
@@ -15,8 +15,17 @@ namespace FirstProject
         {
             if (element != null)
             {
+                Console.WriteLine(element.Id);
                 data.Add(element);
             }
+        }
+
+        //because we demand our generic type to implement interface IEntity we know that each object passed as argument has its id
+        //so we can create method finding element using its id
+        public T GetElementById(int id)
+        {
+            var element = data.FirstOrDefault(el => el.Id == id);
+            return element;
         }
         //take list's element by index number
         public T GetElement(int index)
