@@ -43,7 +43,8 @@ namespace FirstProject
         }
     }
     //Repository with multiple generic parameters
-    public class Repository<TKey, TValue> //may have same name
+    public class Repository<TKey, TValue> where TKey: class where TValue: new() //may have same name because of different number of parameters 
+        //adding generic constrains foreach parameter  
     {
         private Dictionary<TKey, TValue> data = new Dictionary<TKey, TValue>();
         //adding element to list

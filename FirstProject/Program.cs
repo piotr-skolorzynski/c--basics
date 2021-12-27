@@ -38,6 +38,11 @@ namespace FirstProject
             var userRepository = new Repository<string, User>();
             userRepository.AddElement("Bill", new User() { Name = "Bill"});
             User bill = userRepository.GetElement("Bill");
+
+
+            //using generic method from Swap class
+            int[] intArray = new[] { 1, 3, 5 };
+            Console.WriteLine(string.Join(" ", intArray));
         }
     }
       
