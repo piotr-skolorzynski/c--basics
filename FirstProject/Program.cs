@@ -13,36 +13,23 @@ namespace FirstProject
 {
     class Program
     {
+        //create delegate
+        public delegate void Display(string value);
         static void Main(string[] args)
         {
-            //example of using generic class to show values of different types in similar way
-            //simulated list of restaurants to show
-            var restaurants = new List<Restaurant>();
-            //create object of Paginated generic class
-            var result = new PaginatedResult<Restaurant>();
-            //adding list of Restaurants to our newly created object
-            result.Results = restaurants;
+            Display display = Console.WriteLine;
+            display("test");
 
-            //similar implementation
-            var users = new List<User>();
-            var result2 = new PaginatedResult<User>();
-            result2.Results = users;
+            var numbers = new int[] { 10, 30, 50 };
+            DisplayNumbers(numbers, display);
+        }
 
-            //create repository with string values
-            //after adding IEntity interface as generic constrain it
-            //is imposible to do, var stringRepository = new Repository<string>();
-            //stringRepository.AddElement("some value");
-            //Console.WriteLine(stringRepository.GetElement(0));
-
-            //implement usage of multiple parameters repository
-            var userRepository = new Repository<string, User>();
-            userRepository.AddElement("Bill", new User() { Name = "Bill"});
-            User bill = userRepository.GetElement("Bill");
-
-
-            //using generic method from Swap class
-            int[] intArray = new[] { 1, 3, 5 };
-            Console.WriteLine(string.Join(" ", intArray));
+        static void DisplayNumbers(IEnumerable<int> numbers, Display display)
+        {
+            foreach(int number in numbers)
+            {
+                display(number.ToString());
+            }
         }
     }
       

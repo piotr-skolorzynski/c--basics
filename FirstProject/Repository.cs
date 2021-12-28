@@ -58,7 +58,7 @@ namespace FirstProject
         //take list's element by index number
         public TValue GetElement(TKey key)
         {
-            if (data.TryGetValue(key, out TValue result)
+            if (data.TryGetValue(key, out TValue result))
             {
                 return result;
             }
